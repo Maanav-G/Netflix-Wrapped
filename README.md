@@ -1,1 +1,1 @@
-# Netflix-Wrapped
+# Netflix Wrapped
