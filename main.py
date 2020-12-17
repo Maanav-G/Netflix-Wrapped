@@ -11,6 +11,7 @@ start_date = "2020-01-01"
 end_date = "2021-01-01"
 
 df = pd.read_csv('NetflixViewingHistory.csv')
+netflix_df = pd.read_csv('netflix_titles.csv') # 6234 rows
 
 # Get watch history for specified year
 dates = df[df.Date >= start_date]
@@ -27,15 +28,22 @@ df['Shows'] = df['Title'].str.split(':',2)
 df['len'] = df['Shows'].str.len()
 shows = df[df['len'] == 3]
 movies = df[df['len'] != 3]
-movies.drop(['Shows', 'len'], axis=1, inplace=True)
-shows.drop(['Shows', 'len'], axis=1, inplace=True)
+# TODO - Drop Shows and Len column from movies
+# movies.drop(['Shows', 'len'], axis=1, inplace=True)
+# shows.drop(['Shows', 'len'], axis=1, inplace=True)
 
 # Build new columns for Shows - Title, Season, Episode
-# shows['title'], shows['season'], shows['episode'] = df['Title'].str.split(':', 2).str
+# shows['title'], shows['season'], shows['episode'] = shows['Title'].str.split(':', 2).str
+shows = shows.join(shows['Title'].str.split(':', 2, expand=True).rename(columns={0:'title', 1:'season', 2:'episode'}))
+
+# Split dataset between shows and movies 
+netflix_shows = netflix_df[netflix_df['type']=='TV Show'] # 1969 rows
+netflix_movies = netflix_df[netflix_df['type']=='Movie'] # 4265 rows
 
 
-netflix_df = pd.read_csv('netflix_titles.csv')
-print(netflix_df.head())
+# for col in netflix_df.columns:
+#     print(col) 
+#     print(netflix_df.head()[col])
+#     print(" ")
 
 # shows.to_csv('out.csv', sep='\t')
-# print(shows)
