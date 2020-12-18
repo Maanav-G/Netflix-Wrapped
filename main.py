@@ -2,20 +2,19 @@
 # Kaggle API for Dataset 
 # Build connection to send csv data file
 # Serve backend locally 
-# Cleanse netflix dataset seperately
 
 import pandas as pd 
 import numpy as np 
 
-# Date ranger spanning 2020
+# Date range spanning 2020
 start_date = "2020-01-01"
 end_date = "2021-01-01"
 
-netflix_df = pd.read_csv(r'./datasets/netflix_titles.csv') # 6234 rows
-# Split dataset between shows and movies 
-netflix_shows = netflix_df[netflix_df['type']=='TV Show'] # 1969 rows
-netflix_movies = netflix_df[netflix_df['type']=='Movie'] # 4265 rows
+# Netflix shows and movies dataset
+netflix_shows = pd.read_csv(r'./datasets/netflix_shows.csv') # 1969 rows
+netflix_movies = pd.read_csv(r'./datasets/netflix_movies.csv') # 4265 rows
 
+# User's viewing history
 df = pd.read_csv(r'NetflixViewingHistory.csv')
 
 # Get watch history for specified year
@@ -38,13 +37,18 @@ movies = df[df['len'] != 3]
 # shows.drop(['Shows', 'len'], axis=1, inplace=True)
 
 # Build new columns for Shows - Title, Season, Episode
-# shows['title'], shows['season'], shows['episode'] = shows['Title'].str.split(':', 2).str
 shows = shows.join(shows['Title'].str.split(':', 2, expand=True).rename(columns={0:'title', 1:'season', 2:'episode'}))
+movies['title'] = movies['Title']
 
+# Add runtime for shows
+shows_rt = pd.merge(shows, netflix_shows, on='title', how='left')
+# Add runtime for movies
+movies_rt = pd.merge(movies, netflix_movies, on='title', how='left')
+print(shows_rt)
 
+# Collect shows 
 # shows_collected = shows.groupby(['title']).apply(list).reset_index()
-test = netflix_shows[['duration']]
-print(test)
+
 
 
 
