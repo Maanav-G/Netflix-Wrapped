@@ -11,12 +11,12 @@ import numpy as np
 start_date = "2020-01-01"
 end_date = "2021-01-01"
 
-netflix_df = pd.read_csv('netflix_titles.csv') # 6234 rows
+netflix_df = pd.read_csv(r'./datasets/netflix_titles.csv') # 6234 rows
 # Split dataset between shows and movies 
 netflix_shows = netflix_df[netflix_df['type']=='TV Show'] # 1969 rows
 netflix_movies = netflix_df[netflix_df['type']=='Movie'] # 4265 rows
 
-df = pd.read_csv('NetflixViewingHistory.csv')
+df = pd.read_csv(r'NetflixViewingHistory.csv')
 
 # Get watch history for specified year
 dates = df[df.Date >= start_date]
@@ -42,8 +42,9 @@ movies = df[df['len'] != 3]
 shows = shows.join(shows['Title'].str.split(':', 2, expand=True).rename(columns={0:'title', 1:'season', 2:'episode'}))
 
 
-shows_collected = shows.groupby(['title']).apply(list).reset_index()
-print(shows_collected)
+# shows_collected = shows.groupby(['title']).apply(list).reset_index()
+test = netflix_shows[['duration']]
+print(test)
 
 
 
