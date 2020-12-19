@@ -1,4 +1,5 @@
 # TODO
+# Extract XHR Requests directly from Netflix... Shakti API - They run every time you get new page=
 # Kaggle API for Dataset 
 # Build connection to send csv data file
 # Serve backend locally 
@@ -32,6 +33,7 @@ df['Shows'] = df['Title'].str.split(':',2)
 df['len'] = df['Shows'].str.len()
 shows = df[df['len'] == 3]
 movies = df[df['len'] != 3]
+
 # TODO - Drop Shows and Len column from movies
 # movies.drop(['Shows', 'len'], axis=1, inplace=True)
 # shows.drop(['Shows', 'len'], axis=1, inplace=True)
@@ -44,17 +46,7 @@ movies['title'] = movies['Title']
 shows_rt = pd.merge(shows, netflix_shows, on='title', how='left')
 # Add runtime for movies
 movies_rt = pd.merge(movies, netflix_movies, on='title', how='left')
-print(shows_rt)
 
-# Collect shows 
-# shows_collected = shows.groupby(['title']).apply(list).reset_index()
-
-
-
-
-# for col in netflix_df.columns:
-#     print(col) 
-#     print(netflix_df.head()[col])
-#     print(" ")
-
-# shows_collected.to_csv('out.csv', sep='\t')
+# Export CSV files for shows and movies
+shows_rt.to_csv('activity_shows.csv', sep=',')
+movies_rt.to_csv('activity_movies.csv', sep=',')

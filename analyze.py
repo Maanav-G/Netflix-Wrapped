@@ -2,47 +2,41 @@ import pandas as pd
 import numpy as np 
 import datetime
 
-# Date range spanning 2020
-start_date = "2020-01-01"
-end_date = "2021-01-01"
-
-# # Netflix shows and movies dataset
-# netflix_shows = pd.read_csv(r'./datasets/netflix_shows.csv') # 1969 rows
-# netflix_movies = pd.read_csv(r'./datasets/netflix_movies.csv') # 4265 rows
-
 # User's viewing history
-df = pd.read_csv(r'activity.csv')
-
-# Get watch history for specified year
-dates = df[df.Timestamp >= start_date]
-df = dates[dates.Timestamp <= end_date]
-
-# Devise new column for day of week
-df['Date'] = pd.to_datetime(df['Timestamp'], errors='coerce')
-df['day_of_week'] = df['Date'].dt.day_name() # df['day_of_week'] = df['Date'].dt.weekday
-df['month'] = df['Date'].dt.month_name() # df['day_of_week'] = df['Date'].dt.month
+movies = pd.read_csv(r'activity_movies.csv')
+shows = pd.read_csv(r'activity_shows.csv')
+# df = pd.concat([movies, shows])
 
 
 # ----------------- Basic Stats
 
-# Total Time
-totalTime_sec = int(df['Duration (s)'].sum())
-totalTime_str = datetime.timedelta(seconds=totalTime_sec)
+# Total Unique Titles
+grouped_titles_movies = movies['title'].value_counts()
+grouped_titles_shows = shows['title'].value_counts()
+
 
 # Movies
-num_movies = int(df.loc[df['Type']=='Movie', 'Type'].count())
-duration_movies_sec = int(df.loc[df['Type']=='Movie', 'Duration (s)'].sum())
-duration_movies_str = datetime.timedelta(seconds=duration_movies_sec)
+duration_movies_min = int(movies['runtimeMinutes'].sum())
+duration_movies_str = datetime.timedelta(minutes=duration_movies_min)
 
-# Shows 
-num_shows = int(df.loc[df['Type']=='Serie', 'Type'].count())
-duration_shows_sec = int(df.loc[df['Type']=='Serie', 'Duration (s)'].sum())
-duration_shows_str = datetime.timedelta(seconds=duration_shows_sec)
+# # Shows 
+duration_shows_min = int(shows['runtimeMinutes'].sum())
+duration_shows_str = datetime.timedelta(minutes=duration_shows_min)
+
+
+# Total Time
+totalTime_min = duration_movies_min + duration_shows_min
+totalTime_str = datetime.timedelta(minutes=totalTime_min)
 
 # Day-by-Day
-per_day = df.groupby(['day_of_week'], as_index=False).sum()
-per_day['avg'] = (per_day['Duration (s)']/totalTime_sec)*100
-per_day = per_day[['day_of_week', 'avg']]
+per_day_shows = shows.groupby(['day_of_week'], as_index=False).sum()
+per_day_shows['runtimeMinutes_s'] = per_day_shows['runtimeMinutes']
+per_day_shows = per_day_shows[['day_of_week', 'runtimeMinutes_s']]
+per_day_movies = movies.groupby(['day_of_week'], as_index=False).sum()
+per_day_movies['runtimeMinutes_m'] = per_day_movies['runtimeMinutes']
+per_day_movies = per_day_movies[['day_of_week', 'runtimeMinutes_m']]
+per_day = pd.merge(per_day_shows, per_day_movies, on='day_of_week', how='outer').fillna(0)
+per_day['runtimeMinutes_t'] = per_day['runtimeMinutes_s'] + per_day['runtimeMinutes_m']
 days = {
     "Monday":0,
     "Tuesday":0,
@@ -53,6 +47,4 @@ days = {
     "Sunday":0,
 }
 for day in days:
-    days[day] = float(per_day.loc[per_day['day_of_week']==day, 'avg'])
-
-print(days)
+    days[day] = float(per_day.loc[per_day['day_of_week']==day, 'runtimeMinutes_t'])
