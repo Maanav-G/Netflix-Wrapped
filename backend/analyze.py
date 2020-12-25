@@ -48,4 +48,4 @@ days = {
 for day in days:
     days[day] = float(per_day.loc[per_day['day_of_week']==day, 'runtimeMinutes_t'])
 
-print(days)
+# print(days)
