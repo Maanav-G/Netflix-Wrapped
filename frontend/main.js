@@ -1,6 +1,7 @@
 document.querySelector('#fileUpload').addEventListener('change', event => {
     handleFileUpload(event);
 })
+
 const handleFileUpload = event => {
     const URI = "http://127.0.0.1:5000";
     const userFile = event.target.files;
@@ -13,16 +14,34 @@ const handleFileUpload = event => {
     };
     fetch(`${URI}/get_data`, requestOptions)
     .then(function(response) {
-      return response.json();
+        return response.json();
     })
     .then(function(data){
-        console.log(data)
         redirectData(data);
     })
     .catch(function(error) {
       catch_error(error);
     });
 };
+
+function test(){
+    open('maanavgarg.com')
+}
+
+function scrapeViewingHistory(){
+    URI = 'https://www.netflix.com/api/shakti';
+    buildID = '/vb13b96d9';
+    toReturn 
+    for(i = 1; i < 5; i++) {
+        reqURI = `${URI}${buildID}/viewingactivity?pg=${i}&pgSize=20`;
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", reqURI, false );
+        xmlHttp.send( null );
+        console.log(JSON.parse(xmlHttp.responseText).viewedItems);
+    }
+}
+
+
 
 function catch_error(error){
     // TODO:
@@ -35,66 +54,45 @@ function catch_error(error){
 
 
 function redirectData(data){
-    handleStatistics(data['statistics'])
-    handleTitles(data['shows'], 'shows')
-    handleTitles(data['movies'], 'movies')
+    try {
+        handleStatistics(data['statistics'])       
+        handleTitles(parseCSV(data['shows']), 'all_shows')
+        handleTitles(parseCSV(data['movies']), 'all_movies')
+    } catch (error) {
+        catch_error(error)
+    }
 }
 
 
+function handleStatistics(data){
+    for (const stat in data){
+        document.getElementById(stat).innerHTML = data[stat];
+    }
+}
 
+function handleTitles(data, type){
+    allTitles = ""
+    for(i = 0; i < data.length; i++){
+        allTitles += `
+        <tr>
+            <td>${data[i]['Date']}</td>
+            <td>${data[i]['Title']}</td>
+            <td>${data[i]['runtimeMinutes']}</td>
+        </tr>
+        `
+    }
+    document.getElementById(type).innerHTML = allTitles;
+}
 
+function parseCSV(data){
+    try {
+        var obj = JSON.parse(data);
+        return obj;
+    } catch (error) {
+        catch_error(error);
+    }
+}
 
-// function get_data() {
-//     // start_loader()
-//     const URI = "http://127.0.0.1:5000"
-//     const formData  = new FormData();
-//     formData.append('timeFrame', "2020");
-//     const requestOptions = {
-//     method: 'POST',
-//     body: formData,
-//     };
-//     fetch(`${URI}/get_data`, requestOptions)
-//     .then(function(response) {
-//       return response.json();
-//     })
-//     .then(function(data){
-//         console.log(data)
-//         // redirectData(data[0])
-//     })
-//     .catch(function(error) {
-//       console.error(error)
-//       catch_error(error)
-//       });
-// }
-
-// function redirectData(stats){
-//     for (const stat in stats["basics"]){
-//         document.getElementById(stat).innerHTML = stats["basics"][stat];
-//     }
-//     // console.log(stats[0])
-//     all_shows = ""
-//     for(i = 0; i < stats['shows'].length; i++){
-//         all_shows += `
-//         <tr>
-//             <td>${stats['shows'][i]['Date']}</td>
-//             <td>${stats['shows'][i]['Title']}</td>
-//             <td>${stats['shows'][i]['runtimeMinutes']}</td>
-//         </tr>
-//         `
-//     }
-//     // document.getElementById("all_shows").innerHTML = all_shows;
-
-
-//     // for(const stat in stats){
-//     //     console.log(stat)
-//     // }
-
-// }
-
-
-// for (const stat in stats["basic stats"]){
-//     document.getElementById(stat).innerHTML = stats["basic stats"][stat];
-// }
 
 
 // // Load google charts

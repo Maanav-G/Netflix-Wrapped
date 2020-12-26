@@ -22,8 +22,8 @@
         <br /><br />
         <input type="file" id="fileUpload" />
         <!-- <input type="file" id="file" className="form-control" onChange="get_data()" /> -->
-        <button onclick="get_data()">Test Fetch</button>
-        <br/> <br/>
+        <button onclick="test()">Test Fetch</button>
+        <br /> <br />
         <h2 class="">
             Netflix Wrapped <br />
             <small><small><small><small>Jan 2020 - Dec 2020</small></small></small></small>
@@ -183,11 +183,20 @@
         <!-- ====================== -->
 
         <!-- ====================== -->
-        <table class="table">
-            <tbody id="all_shows">
-            </tbody>
-        </table>
-
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <tbody id="all_shows">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <table class="table">
+                    <tbody id="all_movies">
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <!-- ====================== -->
 
     </div>

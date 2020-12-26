@@ -6,15 +6,15 @@ from flask_cors import CORS
 from flask_cors import cross_origin
 import pandas as pd 
 import datetime
+import numpy as np
+from collections import OrderedDict, defaultdict
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
-
 @app.route("/")
 def index():
     return "Netflix Wrapped - Server"
-
 
 @cross_origin(supports_credentials=True)
 @app.route("/get_data", methods=['POST'])
@@ -22,18 +22,12 @@ def get_data():
     timeFrame = request.form['timeFrame']
     userViewingHistory = request.files['file']
     userViewingHistory = pd.read_csv(userViewingHistory)
-    curate = curateData(timeFrame)
-    return jsonify({
-        'shows': (curate['shows'].to_csv(path_or_buf=None)),
-        'movies': ((curate['movies'].to_csv(path_or_buf=None))),
-        'statistics': (curate['basic stats'])
-    })
-    
-    # return jsonify({
-    #     'S': curate['shows'].to_json(orient = 'records')
-    # })
-    # return curate['shows']
-
+    curate = curateData(timeFrame)    
+    return {
+            'shows': curate['shows'].to_json(orient = 'records'),
+            'movies': curate['movies'].to_json(orient = 'records'),
+            'statistics': (curate['basic stats'])
+        } 
 
 def curateData(timeFrame):
     userViewingHistory = processViewingHistory(timeFrame)[0]
@@ -70,8 +64,11 @@ def processViewingHistory(timeFrame):
     movies['title'] = movies['Title']
     # Add runtime for shows
     shows_rt = pd.merge(shows, netflix_shows, on='title', how='left')
+    shows_rt = shows_rt.fillna(22)
     # Add runtime for movies
     movies_rt = pd.merge(movies, netflix_movies, on='title', how='left')
+
+    # print(shows_rt[['runtime']])
     return [{
         'shows': shows_rt,
         'movies': movies_rt
@@ -112,6 +109,8 @@ def analyzViewingHistory(shows, movies):
     }
     for day in days:
         days[day] = float(per_day.loc[per_day['day_of_week']==day, 'runtimeMinutes_t'])
+    shows = shows.replace(r'^\s*$', np.nan, regex=True)
+    movies = movies.replace(r'^\s*$', np.nan, regex=True)
     return {
         "basic stats": {
             "watched_t": 60,
