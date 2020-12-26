@@ -27,3 +27,17 @@ function scrapeViewingHistory(){
         console.log(JSON.parse(xmlHttp.responseText).viewedItems);
     }
 }
+
+
+
+
+chrome.tabs.create({ url: 'https://maanavgarg.com/' }, function(tab){
+    chrome.tabs.sendMessage(tab.id, {greeting: "hello"}, function(){});
+  });
+
+
+    chrome.tabs.create({url: "https://www.stackoverflow.com", active: false }), tab =>{
+        setTimeout(function(){
+            chrome.tabs.remove(tab.id);
+        },INTERVAL);
+    }); 
