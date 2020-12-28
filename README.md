@@ -16,3 +16,7 @@ Where `${BuildID}` is simply just Shakti’s current build identifier, and at th
 From here, since the user’s viewing history is fetched 20 `items` at a time, the extension then aggregates all the items and makes another post request to my flask backend on `…./getData`, which then fully analyzes the viewing history and returns back the user’s viewing statistics.  
 
 ## Flask Backend
+
+
+##
+- Num Episodes
