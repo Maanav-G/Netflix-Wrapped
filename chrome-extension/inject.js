@@ -129,18 +129,18 @@ function summary(data) {
         <tbody>
             <tr>
                 <td>Movies</td>
-                <td id="time_spent_s">${data['watched_m']}</td>
-                <td id="time_spent_s">${data['time_spent_m']}</td>
+                <td id="time_spent_s">${data['watched_m']} movies</td>
+                <td id="time_spent_s">${convertMinutes(data['time_spent_m'])}</td>
             </tr>
             <tr>
                 <td>Series</td>
-                <td id="time_spent_s">${data['watched_s']}</td>
-                <td id="time_spent_s">${data['time_spent_s']}</td>
+                <td id="time_spent_s">${data['watched_s']} shows</td>
+                <td id="time_spent_s">${convertMinutes(data['time_spent_s'])}</td>
             </tr>
             <tr>
                 <td>All Titles</td>
                 <td id="time_spent_s">${data['watched_t']}</td>
-                <td id="time_spent_s">${data['time_spent_t']}</td>
+                <td id="time_spent_s">${convertMinutes(data['time_spent_t'])}</td>
             </tr>
         </tbody>
     </table>
@@ -234,6 +234,20 @@ function dayByDayChart(weekdayData) {
 }
 
 
+function convertMinutes(num){
+    d = Math.floor(num/1440); // 60*24
+    h = Math.floor((num-(d*1440))/60);
+    m = Math.round(num%60);
+  
+    if (d>0) {
+        return (d + " days, " + h + " hours, "+m+" minutes");
+    } else if (h>0) {
+        return (h + " hours, "+m+" minutes");
+    } else {
+        return (m+" minutes");
+    }
+  }
+  
 
 
 function parseCSV(data) {
