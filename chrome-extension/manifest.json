@@ -1,21 +1,37 @@
 {
-    "manifest_version": 2,
-  
-    "name": "Netflix Wrapped",
-    "description": "This extension will pull a user's viewing history",
-    "version": "1.0",
-    "background": {
-        "scripts": [
-          "background.js"
-        ],
-        "persistent": true
-      },
-    "browser_action": {
-     "default_title": "NW"
-    },
-    "permissions": [
-        "https://*/*",
-        "http://*/*",
-        "tabs"
-      ]
-  }
+  "manifest_version": 2,
+
+  "name": "Netflix Wrapped",
+  "description": "This extension will pull a user's viewing history",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.netflix.com/viewingactivity"
+      ],
+      "js": [
+        "utils.js"
+      ],
+      "css": [],
+      "run_at": "document_start"
+    }
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_title": "NW"
+  },
+  "web_accessible_resources": [
+    "inject.js",
+    "dashboard.html"
+    ],
+  "permissions": [
+    "https://*/*",
+    "http://*/*",
+    "tabs"
+  ]
+}
