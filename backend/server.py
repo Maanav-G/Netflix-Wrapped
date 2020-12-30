@@ -43,18 +43,16 @@ def processViewingHistory(userData, timeFrame):
     # Date range spanning 2020
     start_date = timeFrame + "-01-01"
     end_date = timeFrame + "-12-31"
-
     # User's viewing history
     df = userData
     # Get watch history for specified year
-    dates = df[df.dateStr >= start_date]
-    df = dates[dates.dateStr <= end_date]
-
+        # dates = df[df.dateStr >= start_date]
+        # df = dates[dates.dateStr <= end_date]
     # Devise new column for day of week
     df['DateTime'] = pd.to_datetime(df['dateStr'], errors='coerce')
     df['day_of_week'] = df['DateTime'].dt.day_name() # df['day_of_week'] = df['DateTime'].dt.weekday
     df['month'] = df['DateTime'].dt.month_name() # df['day_of_week'] = df['DateTime'].dt.month
-    print(df[['title', 'day_of_week']])
+
     # Split between TV shows and movies based on a lack of series
     # TODO - Find a more robust way to split dataset... 
     shows = df[df['series'].notna()]
@@ -68,10 +66,11 @@ def processViewingHistory(userData, timeFrame):
 
 def analyzViewingHistory(shows, movies):
     # Total Unique Titles
-    grouped_titles_movies = movies['videoTitle'].value_counts()
+    # grouped_titles_movies = movies['videoTitle'].sum()
+    # grouped_titles_shows_ = shows['seriesTitle'].sum()
+    # print(grouped_titles_shows_)
     grouped_titles_shows = shows['seriesTitle'].value_counts()
-    print(grouped_titles_shows.to_json())
-    grouped_total = grouped_titles_movies + grouped_titles_shows 
+    # grouped_total = grouped_titles_movies + grouped_titles_shows 
     # Num Movies
     num_movies = movies['videoTitle'].nunique()
     # Num Shows
@@ -79,10 +78,10 @@ def analyzViewingHistory(shows, movies):
     # Total Titles
     num_total = num_movies + num_shows
     # Movies Duration
-    duration_movies_min = int(movies['duration'].sum())
+    duration_movies_min = int(movies['duration'].sum())/60
     duration_movies_str = str(datetime.timedelta(minutes=duration_movies_min))
     # Shows Duration
-    duration_shows_min = int(shows['duration'].sum())
+    duration_shows_min = int(shows['duration'].sum())/60
     duration_shows_str = datetime.timedelta(minutes=duration_shows_min)
     # Total Time
     totalTime_min = duration_movies_min + duration_shows_min
@@ -107,8 +106,32 @@ def analyzViewingHistory(shows, movies):
         "Sunday":0,
     }
     for day in days:
-        days[day] = float(per_day.loc[per_day['day_of_week']==day, 'duration_t'])
-    
+        days[day] = float(per_day.loc[per_day['day_of_week']==day, 'duration_t']) if day in per_day.values else 0
+
+    months = {
+        "January":0,
+        "February":0,
+        "March":0,
+        "April":0,
+        "May":0,
+        "June":0,
+        "July":0,
+        "August":0,
+        "September":0,
+        "October":0,
+        "November":0,
+        "December":0,
+    }
+    per_month_shows = shows.groupby(['month'], as_index=False).sum()
+    per_month_shows['duration_s'] = per_month_shows['duration']
+    per_month_shows = per_month_shows[['month', 'duration_s']]
+    per_month_movies = movies.groupby(['month'], as_index=False).sum()
+    per_month_movies['duration_m'] = per_month_movies['duration']
+    per_month_movies = per_month_movies[['month', 'duration_m']]
+    per_month = pd.merge(per_month_shows, per_month_movies, on='month', how='outer').fillna(0)
+    per_month['duration_t'] = per_month['duration_s'] + per_month['duration_m']
+    for month in months:
+        months[month] = float(per_month.loc[per_month['month']==month, 'duration_t']) if month in per_month.values else 0
     shows = shows.replace(r'^\s*$', np.nan, regex=True)
     movies = movies.replace(r'^\s*$', np.nan, regex=True)
     return {
@@ -121,6 +144,7 @@ def analyzViewingHistory(shows, movies):
             "time_spent_s": duration_shows_min,
         },
         "days": days,
+        "months": months,
         "top_shows": grouped_titles_shows.to_json(),
         "shows": shows.to_json(orient = 'records'),
         "movies": movies.to_json(orient = 'records'),
