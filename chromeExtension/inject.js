@@ -98,17 +98,6 @@ function buildDashboard(data) {
 
 function summary(data) {
     return `
-    <h4>Summary</h4>
-    <div class="break"></div>
-    <table class="table" style="text-align: center">
-        <thead>
-            <tr>
-                <th></th>
-                <th># Watched</th>
-                <th>Time Spent Watching</th>
-            </tr>
-        </thead>
-        <tbody>
             <tr>
                 <td>Movies</td>
                 <td id="time_spent_s">${data['watched_m']} movies</td>
@@ -124,10 +113,41 @@ function summary(data) {
                 <td id="time_spent_s">${data['watched_t']} titles</td>
                 <td id="time_spent_s">${convertMinutes(data['time_spent_t'])}</td>
             </tr>
-        </tbody>
-    </table>
     `
 }
+
+// function summary(data) {
+//     return `
+//     <h4>Summary</h4>
+//     <div class="break"></div>
+//     <table class="table" style="text-align: center">
+//         <thead>
+//             <tr>
+//                 <th></th>
+//                 <th># Watched</th>
+//                 <th>Time Spent Watching</th>
+//             </tr>
+//         </thead>
+//         <tbody>
+//             <tr>
+//                 <td>Movies</td>
+//                 <td id="time_spent_s">${data['watched_m']} movies</td>
+//                 <td id="time_spent_s">${convertMinutes(data['time_spent_m'])}</td>
+//             </tr>
+//             <tr>
+//                 <td>Series</td>
+//                 <td id="time_spent_s">${data['watched_s']} shows</td>
+//                 <td id="time_spent_s">${convertMinutes(data['time_spent_s'])}</td>
+//             </tr>
+//             <tr>
+//                 <td>All Titles</td>
+//                 <td id="time_spent_s">${data['watched_t']} titles</td>
+//                 <td id="time_spent_s">${convertMinutes(data['time_spent_t'])}</td>
+//             </tr>
+//         </tbody>
+//     </table>
+//     `
+// }
 
 function topTenShows(data) {
     var showlist = ""

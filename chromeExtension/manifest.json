@@ -3,7 +3,7 @@
 
   "name": "Netflix Wrapped",
   "description": "This extension will pull a user's viewing history",
-  "version": "1.0",
+  "version": "1.3",
   "content_scripts": [
     {
       "matches": [
