@@ -15,41 +15,10 @@
         breakPoint = isRequired(userViewedItems);
         userData = [...userData, ...userViewedItems]
         i++;
-    } while (i<1); // TESTING - Replace with `breakPoint` 
+        console.log(i + " - " + userViewedItems);
+    } while (i<5); // Prod - Replace with `breakPoint` 
     handleUserData(userData);
 })();
-
-function handleUserDataTEST(event) {
-    // const formData = new FormData();
-    // formData.append('timeFrame', "2020");
-    // formData.append('userData', JSON.stringify(event));
-    // console.log(JSON.stringify(event))
-
-    const test =`{\\"hi\\": \\"hello\\"}`
-    const requestOptions = {
-        method: 'POST',
-        body: JSON.stringify(event),
-        headers: { "content-type": "application/json"},
-    };
-
-    // const formData = new FormData();
-    // formData.append('userData', JSON.stringify(event));
-    // formData.append('timeFrame', "2020");
-    // const requestOptions = {
-    //     method: 'POST',
-    //     body: "form",
-    //     headers: { "content-type": "application/json"},
-    // };
-    console.log(requestOptions)
-    fetch('https://z27uo4gihl.execute-api.us-east-1.amazonaws.com/default/netflix-wrapped', requestOptions)
-        .then((response) => response.json())
-        .then(function (data) {
-            console.log(data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-};
 
 function handleUserData(event) {
     const requestOptions = {
@@ -62,7 +31,7 @@ function handleUserData(event) {
         })
         .then(function (data) {
             console.log(data)
-            renderDashboard(data);
+            renderDashboard(data['analyzedData']);
         })
         .catch(function (error) {
             console.log(error);
@@ -70,27 +39,27 @@ function handleUserData(event) {
 };
 
 
-// function handleUserData(event) {
-//     const URI = "http://127.0.0.1:5000";
-//     const formData = new FormData();
-//     formData.append('userData', JSON.stringify(event));
-//     formData.append('timeFrame', "2020");
-//     const requestOptions = {
-//         method: 'POST',
-//         body: formData,
-//     };
-//     fetch(`${URI}/get_data`, requestOptions)
-//         .then(function (response) {
-//             return response.json();
-//         })
-//         .then(function (data) {
-//             console.log(data)
-//             renderDashboard(data);
-//         })
-//         .catch(function (error) {
-//             console.log(error);
-//         });
-// };
+function handleUserDataLocal(event) {
+    const URI = "http://127.0.0.1:5000";
+    const formData = new FormData();
+    formData.append('userData', JSON.stringify(event));
+    formData.append('timeFrame', "2020");
+    const requestOptions = {
+        method: 'POST',
+        body: formData,
+    };
+    fetch(`${URI}/get_data`, requestOptions)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data)
+            renderDashboard(data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
 
 function renderDashboard(data){
     const template = '/dashboard.html'
@@ -113,8 +82,6 @@ function renderDashboard(data){
             catch_error("Could not load dashboard");
         });
 }
-
-
 
 function buildDashboard(data) {
     if (typeof variable !== 'undefined') catchError('undefined');

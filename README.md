@@ -21,6 +21,7 @@ From here, since the user’s viewing history is fetched 20 `items` at a time, t
 ##
 - Num Episodes
 - Time spent watching in one day 
+- Save local data
 
 
 [![](https://data.jsdelivr.com/v1/package/npm/chart.js/badge)](https://www.jsdelivr.com/package/npm/chart.js)
