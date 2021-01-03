@@ -20,15 +20,11 @@ def index():
 @app.route("/get_data", methods=['POST'])
 def get_data():
     timeFrame = request.form['timeFrame']
+    print(request.form['userData'])
+    print(json.loads(request.form['userData']))
     userViewingHistory = pd.DataFrame(json.loads(request.form['userData']))
-    # userViewingHistory = pd.read_csv(userViewingHistory)
     curate = curateData(userViewingHistory, timeFrame)    
     return curate
-    # return {
-    #         'shows': curate['shows'].to_json(orient = 'records'),
-    #         'movies': curate['movies'].to_json(orient = 'records'),
-    #         'statistics': (curate['basic stats'])
-    #     } 
         
 def curateData(userData, timeFrame):
     userViewingHistory = processViewingHistory(userData, timeFrame)[0]
@@ -64,7 +60,7 @@ def processViewingHistory(userData, timeFrame):
     }]
 
 
-def analyzViewingHistory(shows, movies):
+def analyzeViewingHistory(shows, movies):
     # Total Unique Titles
     # grouped_titles_movies = movies['videoTitle'].sum()
     # grouped_titles_shows_ = shows['seriesTitle'].sum()

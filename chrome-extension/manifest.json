@@ -10,7 +10,8 @@
         "https://www.netflix.com/viewingactivity"
       ],
       "js": [
-        "utils.js"
+        "utils/utils.js",
+        "utils/charts.js"
       ],
       "css": [],
       "run_at": "document_start"
