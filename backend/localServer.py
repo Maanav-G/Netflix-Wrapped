@@ -28,7 +28,7 @@ def get_data():
         
 def curateData(userData, timeFrame):
     userViewingHistory = processViewingHistory(userData, timeFrame)[0]
-    analyzedData = analyzViewingHistory(
+    analyzedData = analyzeViewingHistory(
         userViewingHistory['shows'], 
         userViewingHistory['movies']
         )
@@ -46,9 +46,11 @@ def processViewingHistory(userData, timeFrame):
         # df = dates[dates.dateStr <= end_date]
     # Devise new column for day of week
     df['DateTime'] = pd.to_datetime(df['dateStr'], errors='coerce')
+    df['Year'] = df['DateTime'].dt.year
+    df = df[df["Year"]==2020]
+    
     df['day_of_week'] = df['DateTime'].dt.day_name() # df['day_of_week'] = df['DateTime'].dt.weekday
     df['month'] = df['DateTime'].dt.month_name() # df['day_of_week'] = df['DateTime'].dt.month
-
     # Split between TV shows and movies based on a lack of series
     # TODO - Find a more robust way to split dataset... 
     shows = df[df['series'].notna()]
