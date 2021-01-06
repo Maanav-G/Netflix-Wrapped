@@ -99,6 +99,9 @@ function renderDashboard(data, titles){
             injectElement("all_titles", allTitles(
                 JSON.parse(titles)
             ));
+            injectElement("date", calcDate(
+                JSON.parse(titles)
+            ));
             typeSplit(data['basic stats']);
             dayByDayChart(data['days']);
             monthlyChart(data['months']);
@@ -192,6 +195,14 @@ function allTitles(data) {
         showList += template;
     }
     return showList;
+}
+
+function calcDate(titles){
+    const earliestTitle = titles[titles.length -1]
+    const lastTitle = titles[0]
+    return (
+        earliestTitle['dateStr'] + " to " + lastTitle['dateStr']
+    )
 }
 
 function secondsToHms(d) {
