@@ -11,9 +11,12 @@
       ],
       "js": [
         "utils/utils.js",
-        "utils/charts.js"
+        "utils/charts.js",
+        "utils/data.js",
+        "utils/loader.js"
       ],
-      "css": [],
+      "css": [
+      ],
       "run_at": "document_start"
     }
   ],
@@ -28,8 +31,12 @@
   },
   "web_accessible_resources": [
     "inject.js",
-    "dashboard.html"
-    ],
+    "dashboard.html",
+    "utils/utils.js",
+    "utils/charts.js",
+    "utils/data.js",
+    "utils/loader.js"
+  ],
   "permissions": [
     "https://*/*",
     "http://*/*",

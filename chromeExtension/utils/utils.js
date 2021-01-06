@@ -2,6 +2,19 @@ const YEAR = 2020;
 
 const injectElement = (elementId, data) => document.getElementById(elementId).innerHTML = data;
 
+function getNetflixBuildId() {
+    const scripts = Array.prototype.slice.call(document.scripts);
+    let buildId = null;
+    scripts.forEach((script, index) => {
+        const buildIdIndex = script.innerHTML.indexOf('BUILD_IDENTIFIER');
+        if (buildIdIndex > -1) {
+            const text = script.innerHTML.substring(buildIdIndex + 19);
+            buildId = text.substring(0, text.indexOf('"'));
+        }
+    });
+    return buildId;
+}
+
 function convertMinutes(num) {
     d = Math.floor(num / 1440); // 60*24
     h = Math.floor((num - (d * 1440)) / 60);
@@ -15,6 +28,7 @@ function convertMinutes(num) {
         return (m + " minutes");
     }
 }
+
 
 function sortDict(dict) {
     var items = Object.keys(dict).map(function (key) {
@@ -49,18 +63,5 @@ function catchError(error) {
         <br/> <br/>
         <h4> Error - ${error}</h4>
     `;
-}
-
-function getNetflixBuildId() {
-    const scripts = Array.prototype.slice.call(document.scripts);
-    let buildId = null;
-    scripts.forEach((script, index) => {
-        const buildIdIndex = script.innerHTML.indexOf('BUILD_IDENTIFIER');
-        if (buildIdIndex > -1) {
-            const text = script.innerHTML.substring(buildIdIndex + 19);
-            buildId = text.substring(0, text.indexOf('"'));
-        }
-    });
-    return buildId;
 }
 

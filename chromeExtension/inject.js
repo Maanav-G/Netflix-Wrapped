@@ -1,23 +1,45 @@
 (function () {
     alert('Please wait a few moments');
-    URI = 'https://www.netflix.com/api/shakti';
-    const getBuildID = getNetflixBuildId();
-    const buildID = getBuildID ? getBuildID : 'vb13b96d9';
-    var userData = new Array();
-    var i = 0;
-    var breakPoint = true;
-    do {
-        reqURI = `${URI}/${buildID}/viewingactivity?pg=${i}&pgSize=100`;
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", reqURI, false);
-        xmlHttp.send(null);
-        userViewedItems = JSON.parse(xmlHttp.responseText).viewedItems;
-        breakPoint = isRequired(userViewedItems);
-        userData = [...userData, ...userViewedItems]
-        i++;
-        console.log(i + " - " + userViewedItems);
-    } while (i<5); // Prod - Replace with `breakPoint` 
-    handleUserData(userData);
+    startLoader()
+    setTimeout(() => {
+        URI = 'https://www.netflix.com/api/shakti';
+        const getBuildID = getNetflixBuildId();
+        const buildID = getBuildID ? getBuildID : 'vb13b96d9';
+        var userData = new Array();
+        var i = 0;
+        var breakPoint = true;
+        do {
+            reqURI = `${URI}/${buildID}/viewingactivity?pg=${i}&pgSize=100`;
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", reqURI, false);
+            xmlHttp.send(null);
+            userViewedItems = JSON.parse(xmlHttp.responseText).viewedItems;
+            breakPoint = isRequired(userViewedItems);
+            userData = [...userData, ...userViewedItems]
+            i++;
+            console.log(i + " - " + userViewedItems);
+        } while (i<10); // Prod - Replace with `breakPoint` 
+        handleUserData(userData);
+    }, 500);
+    // URI = 'https://www.netflix.com/api/shakti';
+    // const getBuildID = getNetflixBuildId();
+    // const buildID = getBuildID ? getBuildID : 'vb13b96d9';
+    // var userData = new Array();
+    // var i = 0;
+    // var breakPoint = true;
+    // do {
+    //     reqURI = `${URI}/${buildID}/viewingactivity?pg=${i}&pgSize=100`;
+    //     var xmlHttp = new XMLHttpRequest();
+    //     xmlHttp.open("GET", reqURI, false);
+    //     xmlHttp.send(null);
+    //     userViewedItems = JSON.parse(xmlHttp.responseText).viewedItems;
+    //     breakPoint = isRequired(userViewedItems);
+    //     userData = [...userData, ...userViewedItems]
+    //     i++;
+    //     console.log(i + " - " + userViewedItems);
+    // } while (i<15); // Prod - Replace with `breakPoint` 
+    // endLoader();
+    // handleUserData(userData);
 })();
 
 function handleUserData(event) {
@@ -31,7 +53,7 @@ function handleUserData(event) {
         })
         .then(function (data) {
             console.log(data)
-            renderDashboard(data['analyzedData']);
+            renderDashboard(data['analyzedData'], data['analyzedData']['allTitles']);
         })
         .catch(function (error) {
             console.log(error);
@@ -61,7 +83,7 @@ function handleUserDataLocal(event) {
         });
 };
 
-function renderDashboard(data){
+function renderDashboard(data, titles){
     const template = '/dashboard.html'
     fetch(chrome.runtime.getURL(template))
         .then(response => response.text())
@@ -74,12 +96,15 @@ function renderDashboard(data){
                     parseCSV(data['top_shows'])
                 )
             ));
+            injectElement("all_titles", allTitles(
+                JSON.parse(titles)
+            ));
             typeSplit(data['basic stats']);
             dayByDayChart(data['days']);
             monthlyChart(data['months']);
         })
         .catch(error => {
-            catch_error("Could not load dashboard");
+            catchError("Could not load dashboard");
         });
 }
 
@@ -98,72 +123,83 @@ function buildDashboard(data) {
 
 function summary(data) {
     return `
-            <tr>
-                <td>Movies</td>
-                <td id="time_spent_s">${data['watched_m']} movies</td>
-                <td id="time_spent_s">${convertMinutes(data['time_spent_m'])}</td>
-            </tr>
-            <tr>
-                <td>Series</td>
-                <td id="time_spent_s">${data['watched_s']} shows</td>
-                <td id="time_spent_s">${convertMinutes(data['time_spent_s'])}</td>
-            </tr>
-            <tr>
-                <td>All Titles</td>
-                <td id="time_spent_s">${data['watched_t']} titles</td>
-                <td id="time_spent_s">${convertMinutes(data['time_spent_t'])}</td>
-            </tr>
-    `
+    <tr>
+        <td>Movies</td>
+        <td id="time_spent_s">${data['watched_m']} movies</td>
+        <td id="time_spent_s">${convertMinutes(data['time_spent_m'])}</td>
+    </tr>
+    <tr>
+        <td>Series</td>
+        <td id="time_spent_s">${data['watched_s']} shows</td>
+        <td id="time_spent_s">${convertMinutes(data['time_spent_s'])}</td>
+    </tr>
+    <tr>
+        <td>All Titles</td>
+        <td id="time_spent_s">${data['watched_t']} titles</td>
+        <td id="time_spent_s">${convertMinutes(data['time_spent_t'])}</td>
+    </tr>
+    `;
 }
 
-// function summary(data) {
-//     return `
-//     <h4>Summary</h4>
-//     <div class="break"></div>
-//     <table class="table" style="text-align: center">
-//         <thead>
-//             <tr>
-//                 <th></th>
-//                 <th># Watched</th>
-//                 <th>Time Spent Watching</th>
-//             </tr>
-//         </thead>
-//         <tbody>
-//             <tr>
-//                 <td>Movies</td>
-//                 <td id="time_spent_s">${data['watched_m']} movies</td>
-//                 <td id="time_spent_s">${convertMinutes(data['time_spent_m'])}</td>
-//             </tr>
-//             <tr>
-//                 <td>Series</td>
-//                 <td id="time_spent_s">${data['watched_s']} shows</td>
-//                 <td id="time_spent_s">${convertMinutes(data['time_spent_s'])}</td>
-//             </tr>
-//             <tr>
-//                 <td>All Titles</td>
-//                 <td id="time_spent_s">${data['watched_t']} titles</td>
-//                 <td id="time_spent_s">${convertMinutes(data['time_spent_t'])}</td>
-//             </tr>
-//         </tbody>
-//     </table>
-//     `
-// }
 
 function topTenShows(data) {
-    var showlist = ""
+    var showlist = "";
     for (i = 0; i < Math.min(data.length, 10); i++) {
         template = `
         <tr>
             <td>${data[i][0]}</td>
             <td>${data[i][1]} episodes</td>
         </tr>
-        `
-        showlist = showlist + template;
+        `;
+        showlist += template;
     }
-    // showlist = showlist + `
-    //     * Viewing history only contains ${data.length} shows
-    // `
+    if(data.length<10){
+        showlist = showlist + `
+            <br/>
+            * Viewing history only contains ${data.length} shows
+        `
+    }
     return showlist;
+}
+
+function allTitles(data) {
+    console.log(data);
+    var showList = "";
+    for (i = 0; i < data.length; i++) {
+
+        template = `
+        <tr>
+            <td>${data[i]['dateStr']}</td>
+            <td>
+                <a href="https://www.netflix.com/title/${data[i]['movieID']}">
+                    ${
+                        (data[i]['seriesTitle'] == undefined) ? "" : (data[i]['seriesTitle'] + " -")
+                    } ${data[i]['title']} 
+                </a>
+            </td>
+            <td>
+                ${
+                    new Date(data[i]['duration'] * 1000).toISOString().substr(11, 8)
+                }
+            </td>
+            <td>
+                ${
+                    (data[i]['seriesTitle'] == undefined) ? "MOVIE" : "SHOW"
+                }
+            </td>
+        </tr>
+        `;
+        showList += template;
+    }
+    return showList;
+}
+
+function secondsToHms(d) {
+    d = Number(d);
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+    return ('0' + h).slice(-2) + ":" + ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
 }
 
 function showList(data) {
@@ -287,9 +323,19 @@ function monthlyChart(monthData) {
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)'
                 ],
                 borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
                     'rgba(255, 99, 132, 1)',
                     'rgba(255, 99, 132, 1)',
                     'rgba(255, 99, 132, 1)',
@@ -304,7 +350,7 @@ function monthlyChart(monthData) {
         options: {
             title: {
                 display: true,
-                text: 'Time Spent Watching per Montth'
+                text: 'Time Spent Watching per Month'
             },
             legend: {
                 display: false,
