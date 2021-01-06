@@ -18,7 +18,7 @@
             userData = [...userData, ...userViewedItems]
             i++;
             console.log(i + " - " + userViewedItems);
-        } while (i<10); // Prod - Replace with `breakPoint` 
+        } while (breakPoint); // Prod - Replace with `breakPoint` 
         handleUserData(userData);
     }, 500);
     // URI = 'https://www.netflix.com/api/shakti';
@@ -174,7 +174,7 @@ function allTitles(data) {
         <tr>
             <td>${data[i]['dateStr']}</td>
             <td>
-                <a href="https://www.netflix.com/title/${data[i]['movieID']}">
+                <a href="https://www.netflix.com/title/${data[i]['movieID']}" target="_blank" >
                     ${
                         (data[i]['seriesTitle'] == undefined) ? "" : (data[i]['seriesTitle'] + " -")
                     } ${data[i]['title']} 
