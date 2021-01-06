@@ -18,8 +18,8 @@
             userData = [...userData, ...userViewedItems]
             i++;
             console.log(i + " - " + userViewedItems);
-        } while (breakPoint); // Prod - Replace with `breakPoint` 
-        handleUserData(userData);
+        } while (i<10); // Prod - Replace with `breakPoint` 
+        handleUserDataLocal(userData);
     }, 500);
     // URI = 'https://www.netflix.com/api/shakti';
     // const getBuildID = getNetflixBuildId();
@@ -150,7 +150,11 @@ function topTenShows(data) {
     for (i = 0; i < Math.min(data.length, 10); i++) {
         template = `
         <tr>
-            <td>${data[i][0]}</td>
+            <td>
+                ${
+                    splitTupleString(data[i][0])
+                }
+            </td>
             <td>${data[i][1]} episodes</td>
         </tr>
         `;
@@ -163,6 +167,11 @@ function topTenShows(data) {
         `
     }
     return showlist;
+}
+
+function splitTupleString(string){
+    stringgrouped_titles_shows
+
 }
 
 function allTitles(data) {
@@ -227,13 +236,17 @@ function showList(data) {
 }
 
 function typeSplit(stats) {
+    const total = stats['time_spent_m'] + stats['time_spent_s']
     var ctx = document.getElementById('typeSplit').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: ['Movies', 'Shows'],
             datasets: [{
-                data: [stats['time_spent_m'], stats['time_spent_s']],
+                data: [
+                    stats['time_spent_m']/total, 
+                    stats['time_spent_s']/total
+                ],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 1)',
@@ -266,7 +279,7 @@ function dayByDayChart(weekdayData) {
         data: {
             labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
             datasets: [{
-                data: [weekdayData['Monday'], weekdayData['Tuesday'], weekdayData['Wednesday'], weekdayData['Thursday'], weekdayData['Friday'], weekdayData['Saturday'], weekdayData['Sunday']],
+                data: [weekdayData['Monday']/60, weekdayData['Tuesday']/60, weekdayData['Wednesday']/60, weekdayData['Thursday']/60, weekdayData['Friday']/60, weekdayData['Saturday']/60, weekdayData['Sunday']/60],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)',
@@ -326,7 +339,7 @@ function monthlyChart(monthData) {
         data: {
             labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             datasets: [{
-                data: [monthData["January"], monthData["February"], monthData["March"], monthData["April"], monthData["May"], monthData["June"], monthData["July"], monthData["August"], monthData["September"], monthData["October"], monthData["November"], monthData["December"]],
+                data: [monthData["January"]/60, monthData["February"]/60, monthData["March"]/60, monthData["April"]/60, monthData["May"]/60, monthData["June"]/60, monthData["July"]/60, monthData["August"]/60, monthData["September"]/60, monthData["October"]/60, monthData["November"]/60, monthData["December"]/60],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)',
@@ -376,7 +389,3 @@ function monthlyChart(monthData) {
         }
     });
 }
-
-
-
-

@@ -67,7 +67,9 @@ def analyzeViewingHistory(shows, movies):
     # grouped_titles_movies = movies['videoTitle'].sum()
     # grouped_titles_shows_ = shows['seriesTitle'].sum()
     # print(grouped_titles_shows_)
-    grouped_titles_shows = shows['seriesTitle'].value_counts()
+    grouped_titles_shows = shows.groupby('seriesTitle')['series'].value_counts().reset_index(name='count').sort_values(by=['counts'], ascending=False)
+    print(grouped_titles_shows)
+    # print(grouped_titles_shows.to_json())
     # grouped_total = grouped_titles_movies + grouped_titles_shows 
     # Num Movies
     num_movies = movies['videoTitle'].nunique()
@@ -143,7 +145,7 @@ def analyzeViewingHistory(shows, movies):
         },
         "days": days,
         "months": months,
-        "top_shows": grouped_titles_shows.to_json(),
+        "top_shows": grouped_titles_shows.to_json(orient = 'records'),
         "shows": shows.to_json(orient = 'records'),
         "movies": movies.to_json(orient = 'records'),
     }

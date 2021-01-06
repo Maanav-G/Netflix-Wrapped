@@ -46,25 +46,29 @@ def curateData(userData):
         userViewingHistory = 'error'
     analyzedData = analyzeViewingHistory(
         userViewingHistory['shows'], 
-        userViewingHistory['movies']
+        userViewingHistory['movies'],
+        userViewingHistory['allTitles']
         )
     return analyzedData
 
 def processViewingHistory(userData):
     df = userData
     df['DateTime'] = pd.to_datetime(df['dateStr'], errors='coerce')
+    df['Year'] = df['DateTime'].dt.year
+    df = df[df["Year"]==2020]
     df['day_of_week'] = df['DateTime'].dt.day_name()
     df['month'] = df['DateTime'].dt.month_name()
     shows = df[df['series'].notna()]
     movies = df[df['series'].isna()]
     return [{
         'shows': shows,
-        'movies': movies
+        'movies': movies,
+        'allTitles': df
     }]
     
-def analyzeViewingHistory(shows, movies):
+def analyzeViewingHistory(shows, movies, allTitles):
     try:
-        grouped_titles_shows = shows['seriesTitle'].value_counts()
+        grouped_titles_shows = shows.groupby('seriesTitle')['series'].value_counts().reset_index(name='count').sort_values(by=['counts'], ascending=False)
         num_movies = movies['videoTitle'].nunique()
         num_shows = shows['seriesTitle'].nunique()
         num_total = num_movies + num_shows
@@ -125,9 +129,10 @@ def analyzeViewingHistory(shows, movies):
             },
             "days": days,
             "months": months,
-            "top_shows": grouped_titles_shows.to_json(),
+            "top_shows": grouped_titles_shows.to_json(orient = 'records'),
             "shows": shows.to_json(orient = 'records'),
             "movies": movies.to_json(orient = 'records'),
+            "allTitles": allTitles.to_json(orient = 'records')
         }
     except:
         return "error"
