@@ -68,7 +68,11 @@ def processViewingHistory(userData):
     
 def analyzeViewingHistory(shows, movies, allTitles):
     try:
-        grouped_titles_shows = shows.groupby('seriesTitle')['series'].value_counts().reset_index(name='count').sort_values(by=['counts'], ascending=False)
+        try:
+            grouped_titles_shows = shows.groupby('seriesTitle')['series'].value_counts().reset_index(name='count').sort_values(by=['count'], ascending=False)
+            grouped_titles_shows = grouped_titles_shows.to_json(orient = 'records')
+        except:
+            grouped_titles_shows = "err"
         num_movies = movies['videoTitle'].nunique()
         num_shows = shows['seriesTitle'].nunique()
         num_total = num_movies + num_shows
@@ -129,7 +133,7 @@ def analyzeViewingHistory(shows, movies, allTitles):
             },
             "days": days,
             "months": months,
-            "top_shows": grouped_titles_shows.to_json(orient = 'records'),
+            "top_shows": grouped_titles_shows,
             "shows": shows.to_json(orient = 'records'),
             "movies": movies.to_json(orient = 'records'),
             "allTitles": allTitles.to_json(orient = 'records')

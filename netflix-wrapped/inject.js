@@ -1,6 +1,6 @@
 (function () {
-    alert('Please wait a few moments');
-    startLoader()
+    insertMetaTag();
+    startLoader();
     setTimeout(() => {
         URI = 'https://www.netflix.com/api/shakti';
         const getBuildID = getNetflixBuildId();
@@ -17,29 +17,9 @@
             breakPoint = isRequired(userViewedItems);
             userData = [...userData, ...userViewedItems]
             i++;
-            console.log(i + " - " + userViewedItems);
-        } while (i<10); // Prod - Replace with `breakPoint` 
-        handleUserDataLocal(userData);
+        } while (breakPoint); // Prod - Replace with `breakPoint` 
+        handleUserData(userData);
     }, 500);
-    // URI = 'https://www.netflix.com/api/shakti';
-    // const getBuildID = getNetflixBuildId();
-    // const buildID = getBuildID ? getBuildID : 'vb13b96d9';
-    // var userData = new Array();
-    // var i = 0;
-    // var breakPoint = true;
-    // do {
-    //     reqURI = `${URI}/${buildID}/viewingactivity?pg=${i}&pgSize=100`;
-    //     var xmlHttp = new XMLHttpRequest();
-    //     xmlHttp.open("GET", reqURI, false);
-    //     xmlHttp.send(null);
-    //     userViewedItems = JSON.parse(xmlHttp.responseText).viewedItems;
-    //     breakPoint = isRequired(userViewedItems);
-    //     userData = [...userData, ...userViewedItems]
-    //     i++;
-    //     console.log(i + " - " + userViewedItems);
-    // } while (i<15); // Prod - Replace with `breakPoint` 
-    // endLoader();
-    // handleUserData(userData);
 })();
 
 function handleUserData(event) {
@@ -60,7 +40,6 @@ function handleUserData(event) {
         });
 };
 
-
 function handleUserDataLocal(event) {
     const URI = "http://127.0.0.1:5000";
     const formData = new FormData();
@@ -75,7 +54,7 @@ function handleUserDataLocal(event) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
+            console.log(data);
             renderDashboard(data);
         })
         .catch(function (error) {
@@ -83,7 +62,7 @@ function handleUserDataLocal(event) {
         });
 };
 
-function renderDashboard(data, titles){
+function renderDashboard(data, titles) {
     const template = '/dashboard.html'
     fetch(chrome.runtime.getURL(template))
         .then(response => response.text())
@@ -91,10 +70,8 @@ function renderDashboard(data, titles){
             console.log('injecting template');
             document.getElementsByClassName("bd")[0].innerHTML = template;
             injectElement("summarySection", summary(data['basic stats']));
-            injectElement("topTenShows", topTenShows(
-                sortDict(
-                    parseCSV(data['top_shows'])
-                )
+            injectElement("topFiveShows", topFiveShows(
+                JSON.parse(data['top_shows'])
             ));
             injectElement("all_titles", allTitles(
                 JSON.parse(titles)
@@ -127,16 +104,19 @@ function buildDashboard(data) {
 function summary(data) {
     return `
     <tr>
+        <td><img src="https://img.icons8.com/ios-filled/40/000000/movie-projector.png"/></td>
         <td>Movies</td>
         <td id="time_spent_s">${data['watched_m']} movies</td>
         <td id="time_spent_s">${convertMinutes(data['time_spent_m'])}</td>
     </tr>
     <tr>
+        <td><img src="https://img.icons8.com/android/40/000000/retro-tv.png"/></td>
         <td>Series</td>
         <td id="time_spent_s">${data['watched_s']} shows</td>
         <td id="time_spent_s">${convertMinutes(data['time_spent_s'])}</td>
     </tr>
     <tr>
+        <td></td>
         <td>All Titles</td>
         <td id="time_spent_s">${data['watched_t']} titles</td>
         <td id="time_spent_s">${convertMinutes(data['time_spent_t'])}</td>
@@ -144,23 +124,22 @@ function summary(data) {
     `;
 }
 
-
-function topTenShows(data) {
+function topFiveShows(data) {
     var showlist = "";
-    for (i = 0; i < Math.min(data.length, 10); i++) {
+    for (i = 0; i < Math.min(data.length, 5); i++) {
         template = `
         <tr>
             <td>
-                ${
-                    splitTupleString(data[i][0])
-                }
+                <a href="https://www.netflix.com/title/${data[i]['series']}" target="_blank">
+                    ${data[i]['seriesTitle']}
+                </a>
             </td>
-            <td>${data[i][1]} episodes</td>
+            <td>${data[i]['count']} episodes</td>
         </tr>
         `;
         showlist += template;
     }
-    if(data.length<10){
+    if (data.length < 5) {
         showlist = showlist + `
             <br/>
             * Viewing history only contains ${data.length} shows
@@ -169,9 +148,54 @@ function topTenShows(data) {
     return showlist;
 }
 
-function splitTupleString(string){
-    stringgrouped_titles_shows
+function getImgUrl(id) {
 
+    URI = 'https://www.netflix.com/api/shakti';
+    const getBuildID = getNetflixBuildId();
+    const buildID = getBuildID ? getBuildID : 'vb13b96d9';
+
+    reqURI = `${URI}/${buildID}/`;
+
+
+    do {
+        reqURI = `${URI}/${buildID}/viewingactivity?pg=${i}&pgSize=100`;
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", reqURI, false);
+        xmlHttp.send(null);
+        userViewedItems = JSON.parse(xmlHttp.responseText).viewedItems;
+        breakPoint = isRequired(userViewedItems);
+        userData = [...userData, ...userViewedItems]
+        i++;
+        console.log(i + " - " + userViewedItems);
+    } while (i < 10); // Prod - Replace with `breakPoint` 
+    handleUserData(userData);
+
+
+    var request = makeHttpObject();
+    request.open("GET", `https://www.netflix.com/ca/title/${id}`);
+    request.send(null);
+    request.onreadystatechange = function () {
+        if (request.readyState == 4) {
+            // let parser = new DOMParser();
+            // let parsedHtml = parser.parseFromString(request.responseText, 'text/html');
+            // let body = parsedHtml.getElementsByTagName('body')[0].childNodes
+            console.log(request.responseText);
+            // var root = document.createElement("div");
+            // root.innerHTML = request.responseText;
+            // console.log(root.div['section-hero'])
+            // var sectionHero = root.getElementById('section-hero');
+            // console.log(sectionHero)
+            // html = $.parseHTML(request.responseText)
+            // var appMountPoint = $(10, html);
+            // console.log(appMountPoint)
+            // var element = document.createElement('div');
+            // element.innerHTML = request.responseText;
+            // alert(element.firstChild.nodeName);
+            // sectionHero = element.getElementById('section-hero');
+            // heroContainer = element.getElementsByClassName('hero-container')[0]
+            // alert(heroContainer.text);
+        }
+    };
 }
 
 function allTitles(data) {
@@ -181,6 +205,11 @@ function allTitles(data) {
 
         template = `
         <tr>
+            <td>
+                ${
+                    (data[i]['seriesTitle'] == undefined) ? `<img src="https://img.icons8.com/ios-filled/40/000000/movie-projector.png"/>` : `<img src="https://img.icons8.com/android/40/000000/retro-tv.png"/>`
+                }
+            </td>
             <td>${data[i]['dateStr']}</td>
             <td>
                 <a href="https://www.netflix.com/title/${data[i]['movieID']}" target="_blank" >
@@ -194,11 +223,6 @@ function allTitles(data) {
                     new Date(data[i]['duration'] * 1000).toISOString().substr(11, 8)
                 }
             </td>
-            <td>
-                ${
-                    (data[i]['seriesTitle'] == undefined) ? "MOVIE" : "SHOW"
-                }
-            </td>
         </tr>
         `;
         showList += template;
@@ -206,8 +230,8 @@ function allTitles(data) {
     return showList;
 }
 
-function calcDate(titles){
-    const earliestTitle = titles[titles.length -1]
+function calcDate(titles) {
+    const earliestTitle = titles[titles.length - 1]
     const lastTitle = titles[0]
     return (
         earliestTitle['dateStr'] + " to " + lastTitle['dateStr']
@@ -244,8 +268,8 @@ function typeSplit(stats) {
             labels: ['Movies', 'Shows'],
             datasets: [{
                 data: [
-                    stats['time_spent_m']/total, 
-                    stats['time_spent_s']/total
+                    stats['time_spent_m'] / total,
+                    stats['time_spent_s'] / total
                 ],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -279,7 +303,7 @@ function dayByDayChart(weekdayData) {
         data: {
             labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
             datasets: [{
-                data: [weekdayData['Monday']/60, weekdayData['Tuesday']/60, weekdayData['Wednesday']/60, weekdayData['Thursday']/60, weekdayData['Friday']/60, weekdayData['Saturday']/60, weekdayData['Sunday']/60],
+                data: [weekdayData['Monday'] / 60, weekdayData['Tuesday'] / 60, weekdayData['Wednesday'] / 60, weekdayData['Thursday'] / 60, weekdayData['Friday'] / 60, weekdayData['Saturday'] / 60, weekdayData['Sunday'] / 60],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)',
@@ -339,7 +363,7 @@ function monthlyChart(monthData) {
         data: {
             labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             datasets: [{
-                data: [monthData["January"]/60, monthData["February"]/60, monthData["March"]/60, monthData["April"]/60, monthData["May"]/60, monthData["June"]/60, monthData["July"]/60, monthData["August"]/60, monthData["September"]/60, monthData["October"]/60, monthData["November"]/60, monthData["December"]/60],
+                data: [monthData["January"] / 60, monthData["February"] / 60, monthData["March"] / 60, monthData["April"] / 60, monthData["May"] / 60, monthData["June"] / 60, monthData["July"] / 60, monthData["August"] / 60, monthData["September"] / 60, monthData["October"] / 60, monthData["November"] / 60, monthData["December"] / 60],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)',

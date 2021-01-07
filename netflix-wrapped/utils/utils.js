@@ -15,6 +15,23 @@ function getNetflixBuildId() {
     return buildId;
 }
 
+function makeHttpObject() {
+    try {return new XMLHttpRequest();}
+    catch (error) {}
+    try {return new ActiveXObject("Msxml2.XMLHTTP");}
+    catch (error) {}
+    try {return new ActiveXObject("Microsoft.XMLHTTP");}
+    catch (error) {}
+    throw new Error("Could not create HTTP request object.");
+}
+
+function insertMetaTag(){
+    var metaTag = document.createElement('meta');
+    metaTag.setAttribute('http-equiv', 'Content-Security-Policy');
+    metaTag.content = "upgrade-insecure-requests";
+    document.getElementsByTagName('head')[0].appendChild(metaTag);
+}
+
 function convertMinutes(num) {
     d = Math.floor(num / 1440); // 60*24
     h = Math.floor((num - (d * 1440)) / 60);

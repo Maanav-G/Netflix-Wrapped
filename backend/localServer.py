@@ -9,6 +9,12 @@ import datetime
 import numpy as np
 import json
 
+# 
+from bs4 import BeautifulSoup
+import requests
+import re
+
+
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
@@ -67,7 +73,8 @@ def analyzeViewingHistory(shows, movies):
     # grouped_titles_movies = movies['videoTitle'].sum()
     # grouped_titles_shows_ = shows['seriesTitle'].sum()
     # print(grouped_titles_shows_)
-    grouped_titles_shows = shows.groupby('seriesTitle')['series'].value_counts().reset_index(name='count').sort_values(by=['counts'], ascending=False)
+    grouped_titles_shows = shows.groupby('seriesTitle')['series'].value_counts().reset_index(name='count').sort_values(by=['count'], ascending=False)
+    grouped_titles_shows['url'] = grouped_titles_shows.apply(lambda row: getImageURL(int(row["series"])), axis=1)
     print(grouped_titles_shows)
     # print(grouped_titles_shows.to_json())
     # grouped_total = grouped_titles_movies + grouped_titles_shows 
@@ -149,6 +156,24 @@ def analyzeViewingHistory(shows, movies):
         "shows": shows.to_json(orient = 'records'),
         "movies": movies.to_json(orient = 'records'),
     }
+
+
+def getImageURL(id):
+    url = "https://www.netflix.com/ca/title/" + str(id)
+    try:
+        urlContent = requests.get(url)
+        soup = BeautifulSoup(urlContent.text, 'html.parser')
+        soup = soup.find('section', { "id" : "section-hero"})
+        soup = soup.find('div', {"class" : "hero-container"})
+        soup = soup.find('div', {"class" : "hero-image-container"})
+        soup = soup.find('div', {"class" : "hero-image hero-image-desktop"})
+        soup = soup['style']
+        soupSplit = dict(item.split(":", 1) for item in soup.split(";"))
+        imageURL = soupSplit['background-image']
+        url = imageURL[len('url("'):-len('")')]
+    except:
+        url = "#"
+    return url
 
 
 if __name__ == '__main__':

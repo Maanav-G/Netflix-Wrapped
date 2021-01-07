@@ -1,5 +1,4 @@
 function startLoader() {
-    console.log("loader.start()")
     document.getElementsByClassName("bd")[0].innerHTML = `
         <br/> <br/> <br/>
         <h3 style="text-align: center;">

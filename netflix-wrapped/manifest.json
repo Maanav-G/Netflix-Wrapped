@@ -26,12 +26,19 @@
   ],
   "background": {
     "scripts": [
-      "background.js"
+      "inject.js",
+      "dashboard.html",
+      "utils/utils.js",
+      "utils/charts.js",
+      "utils/data.js",
+      "utils/loader.js",
+      "utils/fa.js" 
     ],
     "persistent": true
   },
   "browser_action": {
-    "default_title": "Netflix Wrapped"
+    "default_title": "Netflix Wrapped",
+    "default_popup": "popup.html"
   },
   "web_accessible_resources": [
     "inject.js",
@@ -39,7 +46,8 @@
     "utils/utils.js",
     "utils/charts.js",
     "utils/data.js",
-    "utils/loader.js"
+    "utils/loader.js",
+    "utils/fa.js" 
   ],
   "permissions": [
     "https://*/*",
