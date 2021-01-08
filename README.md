@@ -28,14 +28,25 @@ The following outlines the statistics you'd see:
 - Time spent watching by month (Line Graph)
 - Top 5 most watched shows
 
+## Instructions
+1. Download this extension on the Google Chrome Store from here
+2. Open up Netflix and log into your account 
+3. Head over to your viewing activity page via netflix.com/viewingactivity
+4. Click on the `Netflix Wrapped` extension on your toolbar and simply click the `WRAPPED` button
+Now just give it a minute or so (depending on how much Netflix you watch) and your Netflix Wrapped dashboard will (should) open up.
+
 <br/>
 
 
 ## Overview
 
+Essentially, when you click the `WRAPPED` button, the extension first fetches the user's viewing history from Netflix's `Shakti` API and then aggregates it into an array. From there, it sends the aggregated data to my `AWS Lambda Function` through the `API Gateway` which then returns the analyzed statistics back to the extension.  
+
 <p style="text-align:center;" align="center">
   <img style="width: 100%; background: white;" src="./files/struct.svg">
 </p>
+
+Then it simply injects all that data into the dashboard. 
 
 <br/>
 
