@@ -34,7 +34,7 @@ The following outlines the statistics you'd see:
 ## Overview
 
 <p style="text-align:center;" align="center">
-  <img style="width: 100%; background: white;" src="./files/structure.svg">
+  <img style="width: 100%; background: white;" src="./files/struct.svg">
 </p>
 
 <br/>
