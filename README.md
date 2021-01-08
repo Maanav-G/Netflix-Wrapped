@@ -1,6 +1,6 @@
 
 <p style="text-align:center;" align="center">
-  <img style="width: 400px" src="./netflix-wrapped/files/netflix_logo.svg">
+  <img style="width: 200px" src="./netflix-wrapped/files/netflix_logo.svg">
 
   <h1 align="center">Netflix Wrapped</h1>
 
