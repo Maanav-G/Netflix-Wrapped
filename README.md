@@ -1,12 +1,45 @@
-# Netflix Wrapped
 
-Netflix Wrapped - Your 2020 Netflix year in review, in the form of a Google Extension that fetches your viewing history and builds a concise dashboard with all your statistics. 
+<p style="text-align:center;" align="center">
+  <img style="width: 400px" src="./netflix-wrapped/files/netflix_logo.svg">
 
-Feel free to download the “Netflix Wrapped” Google Extension from here and test it out yourself.
+  <h1 align="center">Netflix Wrapped</h1>
 
-Where, this repo holds Google Extension component as well as the back-end portion of the ‘Netflix Wrapped’ extension.
+  <p align="center">Netflix Wrapped - Your 2020 Netflix year in review</p>
 
-## Google Extension
+  <p align="center">
+    <a href="https://chrome.google.com/webstore/detail/bckfpnenhimfckndcceonmkhheinmkob?utm_source=github">Install the Google Chrome Extension</a>
+  </p>
+</p>
+
+<br/>
+
+
+Netflix Wrapped - Your 2020 Netflix year in review, in the form of a Google Extension that fetches your viewing history and builds a concise dashboard with all your statistics. Where, this repo holds Google Extension component as well as the AWS Lambda Function of the ‘Netflix Wrapped’ extension. 
+
+
+The following outlines the statistics you'd see:
+
+- Number of Movies watched
+- Time spent watching Movies
+- Number of Shows watched
+- Time spent watching Shows
+- Split between time spent watching Movies vs. Shows (Pie Chart)
+- Time spent watching by weekday (Bar Chart)
+- Time spent watching by month (Line Graph)
+- Top 5 most watched shows
+
+<br/>
+
+
+## Overview
+
+<p style="text-align:center;" align="center">
+  <img style="width: 100%; background: white;" src="./files/structure.svg">
+</p>
+
+<br/>
+
+## Google Extension - Frontend
 
 On one simple click, the Google Extension extracts your accounts full viewing history by querying Netflix’s hidden ‘Shakti’ API through the following request path: 
 
@@ -15,20 +48,16 @@ POST /api/shakti/${BuildID}/…
 ```
 Where `${BuildID}` is simply just Shakti’s current build identifier, and at the time of this documentation it happens to be `vb13b96d9`
 
-From here, since the user’s viewing history is fetched 20 `items` at a time, the extension then aggregates all the items and makes another post request to my flask backend on `…./getData`, which then fully analyzes the viewing history and returns back the user’s viewing statistics.  
+From here, since the user’s viewing history is fetched 20 `items` at a time, the extension then aggregates all the items and makes `POST` request to my AWS Lambda Backend, which then fully analyzes the aggregated history and returns back the user’s viewing statistics from 2020.  
 
-## Flask Backend
+<br/>
 
-## USED 
+## AWS Lambda Function - Backend
+
+
+<h2 align="left">External Libraries Used</h2>
 - ChartsJS
 - Icons8
-- Bootstrap 
-
-##
-- Num Episodes
-- Time spent watching in one day 
-- Save local data
-- Save movie ID from 
+- Bootstrap
 
 
-[![](https://data.jsdelivr.com/v1/package/npm/chart.js/badge)](https://www.jsdelivr.com/package/npm/chart.js)

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="850px" height="187px" viewBox="0 0 850 187" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Artboard</title>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#454545" x="315" y="33" width="145" height="120" rx="8"></rect>
+        <text id="Netflix-Wrapped-Goog" font-family="AvenirNext-Regular, Avenir Next" font-size="10" font-weight="normal" fill="#000000">
+            <tspan x="387.5" y="43"></tspan>
+            <tspan x="387.5" y="57" font-family="AvenirNext-Medium, Avenir Next" font-weight="400"></tspan>
+            <tspan x="349.565" y="71" font-family="AvenirNext-Medium, Avenir Next" font-weight="400">Netflix Wrapped</tspan>
+            <tspan x="326.7" y="85" font-family="AvenirNext-Medium, Avenir Next" font-weight="400">Google Chrome Extension</tspan>
+            <tspan x="448.3" y="85"></tspan>
+            <tspan x="387.5" y="99"></tspan>
+            <tspan x="345.8185" y="113" font-family="AvenirNext-Italic, Avenir Next" font-size="7" font-style="italic">netflix.com/viewingactivity</tspan>
+            <tspan x="387.5" y="123"></tspan>
+        </text>
+        <rect id="Rectangle" stroke="#E20000" x="44" y="52" width="160" height="86" rx="8"></rect>
+        <text id="Netflix-Sakti-API-/a" font-family="AvenirNext-Medium, Avenir Next" font-size="10" font-weight="400" fill="#000000">
+            <tspan x="124" y="73"></tspan>
+            <tspan x="87.485" y="87">Netflix Sakti API</tspan>
+            <tspan x="124" y="101" font-family="AvenirNext-Regular, Avenir Next" font-weight="normal"></tspan>
+            <tspan x="63.6495" y="115" font-family="AvenirNext-Italic, Avenir Next" font-size="7" font-style="italic" font-weight="normal">/api/shakti/{BuildID}/viewingactivity….</tspan>
+            <tspan x="184.3505" y="115" font-family="AvenirNext-Italic, Avenir Next" font-style="italic" font-weight="normal"></tspan>
+            <tspan x="124" y="125" font-family="AvenirNext-Regular, Avenir Next" font-weight="normal"></tspan>
+        </text>
+        <text id="&lt;--REQUEST-RESPONSE" font-family="AvenirNext-Regular, Avenir Next" font-size="8" font-weight="normal">
+            <tspan x="235.748" y="84" fill="#000000">&lt;- REQUEST</tspan>
+            <tspan x="258.5" y="95" fill="#000000"></tspan>
+            <tspan x="233.754" y="106" fill="#000000">RESPONSE</tspan>
+            <tspan x="274.594" y="106" font-family="AvenirNext-Italic, Avenir Next" font-size="7" font-style="italic" fill="#000000"> -&gt;</tspan>
+            <tspan x="226.4925" y="117" font-family="AvenirNext-Italic, Avenir Next" font-size="7" font-style="italic" fill="#FF0000">(user’s viewing data)</tspan>
+            <tspan x="290.5075" y="117" font-family="AvenirNext-Italic, Avenir Next" font-size="10" font-style="italic" fill="#FF0000"></tspan>
+            <tspan x="258.5" y="127" font-size="10" fill="#000000"></tspan>
+        </text>
+        <text id="REQUEST--&gt;-(user’s-v" font-family="AvenirNext-Regular, Avenir Next" font-size="8" font-weight="normal">
+            <tspan x="493.844" y="76" fill="#000000">REQUEST -&gt;</tspan>
+            <tspan x="484.195" y="87" font-size="7" fill="#FF0000">(user’s viewing data)</tspan>
+            <tspan x="516.5" y="97" font-size="6" fill="#000000"></tspan>
+            <tspan x="491.136" y="105" fill="#000000">&lt;- RESPONSE</tspan>
+            <tspan x="541.864" y="105" font-family="AvenirNext-Italic, Avenir Next" font-size="7" font-style="italic" fill="#000000"></tspan>
+            <tspan x="488.122" y="116" font-family="AvenirNext-Italic, Avenir Next" font-size="7" font-style="italic" fill="#C17023">(viewing statistics)</tspan>
+            <tspan x="544.878" y="116" font-family="AvenirNext-Italic, Avenir Next" font-size="10" font-style="italic" fill="#C17023"></tspan>
+            <tspan x="516.5" y="126" font-size="10" fill="#000000"></tspan>
+        </text>
+        <line x1="313.624138" y1="93.5" x2="205" y2="93" id="Line" stroke="#000000" stroke-linecap="square"></line>
+        <line x1="569.624138" y1="93.5" x2="461" y2="93" id="Line" stroke="#000000" stroke-linecap="square"></line>
+        <line x1="701.687931" y1="93.25" x2="662" y2="93" id="Line" stroke="#000000" stroke-linecap="square"></line>
+        <rect id="Rectangle" stroke="#D9A740" x="570" y="50" width="91" height="86" rx="8"></rect>
+        <text id="AWS-API-Gateway-…/ne" font-family="AvenirNext-Medium, Avenir Next" font-size="10" font-weight="400" fill="#000000">
+            <tspan x="615.5" y="66"></tspan>
+            <tspan x="604.22" y="80">AWS </tspan>
+            <tspan x="586.21" y="94">API Gateway</tspan>
+            <tspan x="615.5" y="108" font-family="AvenirNext-Regular, Avenir Next" font-weight="normal"></tspan>
+            <tspan x="587.024" y="122" font-family="AvenirNext-Italic, Avenir Next" font-size="7" font-style="italic" font-weight="normal">…/netflixwrapped</tspan>
+            <tspan x="643.976" y="122" font-family="AvenirNext-Italic, Avenir Next" font-style="italic" font-weight="normal"></tspan>
+            <tspan x="615.5" y="132" font-family="AvenirNext-Regular, Avenir Next" font-weight="normal"></tspan>
+        </text>
+        <rect id="Rectangle" stroke="#FA7E14" x="702" y="50" width="90" height="86" rx="8"></rect>
+        <text id="AWS-Lambda-Function" font-family="AvenirNext-Medium, Avenir Next" font-size="10" font-weight="400" fill="#000000">
+            <tspan x="734.72" y="88">AWS </tspan>
+            <tspan x="706.165" y="102">Lambda Function</tspan>
+            <tspan x="746" y="116"></tspan>
+            <tspan x="746" y="130" font-family="AvenirNext-Regular, Avenir Next" font-weight="normal"></tspan>
+            <tspan x="746" y="144" font-family="AvenirNext-Regular, Avenir Next" font-weight="normal"></tspan>
+        </text>
+        <g id="aws-api-gateway" transform="translate(642.000000, 37.000000)" fill-rule="nonzero">
+            <polyline id="Path" fill="#634B1E" points="29 15.7125154 22.3261878 16 18 15.7130736 25.1557287 15 29 15.7125154"></polyline>
+            <polyline id="Path" fill="#D9A740" points="24.3565431 16.5628285 29 17 29 8.18768325 24.3565431 6 24 6.36268685 24 16.1878492 24.3565431 16.5628285"></polyline>
+            <polyline id="Path" fill="#886A2A" points="18 8.18868988 25 6 25 16.5625539 18 17 18 8.18868988"></polyline>
+            <polyline id="Path" fill="#634B1E" points="0 16.4683597 6.67381224 17 11 16.469392 3.86467332 15 0 16.4683597"></polyline>
+            <polyline id="Path" fill="#886A2A" points="3.82393617 16.5767362 0 17 0 8.17947444 3.82393617 6 4 6.37541128 4 16.2472342 3.82393617 16.5767362"></polyline>
+            <polyline id="Path" fill="#D9A740" points="11 8.18868988 4 6 4 16.5625539 11 17 11 8.18868988"></polyline>
+            <g id="Group" transform="translate(18.000000, 20.000000)">
+                <polyline id="Path" fill="#FAD791" points="10.9978697 0.309340099 4.32945851 0.00498632032 0.00677186461 0.30874935 7.12559484 1.10117978 10.9978697 0.309340099"></polyline>
+                <polyline id="Path" fill="#D9A740" points="7.14125947 0.733734032 10.9978697 0.309340099 10.9978697 8.86397337 7.14125947 10.9877153 6.93869221 10.5020016 6.93869221 1.17017924 7.14125947 0.733734032"></polyline>
+                <polyline id="Path" fill="#886A2A" points="0.00677186461 8.86905381 7.14125947 10.995395 7.14125947 0.733734032 0.00677186461 0.30874935 0.00677186461 8.86905381"></polyline>
+            </g>
+            <g id="Group" transform="translate(0.000000, 20.000000)">
+                <polyline id="Path" fill="#FAD791" points="0 0.309340099 6.66841124 0.00498632032 10.9910979 0.30874935 3.80993827 1.16982479 0 0.309340099"></polyline>
+                <polyline id="Path" fill="#886A2A" points="3.85661028 0.733734032 0 0.309340099 0 8.86397337 3.85661028 10.9877153 4.0903995 10.6049101 4.0903995 1.16982479 3.85661028 0.733734032"></polyline>
+                <polyline id="Path" fill="#D9A740" points="10.9910979 8.86905381 3.85661028 10.995395 3.85661028 0.733734032 10.9910979 0.30874935 10.9910979 8.86905381"></polyline>
+            </g>
+            <g id="Group" transform="translate(7.000000, 0.000000)">
+                <polyline id="Path" fill="#634B1E" points="4.40310324 12.3481997 8.06146469 11.674815 15.3650927 12.7603145 15.994203 13.1401636 12.4468153 13.547619 4.40310324 12.3481997"></polyline>
+                <polyline id="Path" fill="#634B1E" points="11.6046354 12.3481997 7.94627391 11.674815 0.328146227 12.9155855 0.0135355761 13.1401636 3.56092326 13.547619 11.6046354 12.3481997"></polyline>
+                <polyline id="Path" fill="#FAD791" points="4.40310324 23.7949253 8.06146469 24.46831 15.3466711 23.3990016 15.994203 23.0029614 12.4468153 22.595506 4.40310324 23.7949253"></polyline>
+                <polyline id="Path" fill="#FAD791" points="11.6046354 23.7949253 7.94627391 24.46831 0.27265934 23.3213078 0.0135355761 23.0029614 3.56092326 22.595506 11.6046354 23.7949253"></polyline>
+                <polyline id="Path" fill="#D9A740" points="15.994203 13.1401636 15.994203 8.97160791 12.2529442 7.68738944 12.2529442 2.23135379 8.0038693 0.00164767599 8.0038693 0.00176415839 7.82664419 0.297978903 7.79435082 35.5441556 8.0038693 35.9973886 12.2529442 33.7676825 12.2529442 28.4557356 15.994203 27.1715171 15.994203 23.0029614 12.2529442 23.6942845 12.2529442 12.4488405 15.994203 13.1401636"></polyline>
+                <polyline id="Path" fill="#886A2A" points="3.75479444 2.23135379 3.75479444 7.68738944 0.0135355761 8.97160791 0.0135355761 13.1401636 3.75479444 12.4488405 3.75479444 23.6942845 0.0135355761 23.0029614 0.0135355761 27.1715171 3.75479444 28.4557356 3.75479444 33.7676825 8.0038693 35.9973886 8.0038693 0.00164767599 3.75479444 2.23135379"></polyline>
+            </g>
+        </g>
+        <g id="aws-lambda-1" transform="translate(775.000000, 37.000000)" fill="#FA7E14" fill-rule="nonzero">
+            <path d="M15.4629098,17.3713114 C15.3449629,17.5435711 15.2455611,17.6853424 15.1498684,17.8286381 C13.6237298,20.1366134 12.0980857,22.4443346 10.5729361,24.7518018 C9.15411183,26.8981884 7.73380394,29.0433046 6.31201244,31.1871504 C6.26429541,31.2552356 6.19067882,31.2992907 6.10949988,31.308342 C4.10217755,31.2905571 2.09534976,31.2681989 0.0890165111,31.2412674 C0.0667623833,31.2412674 0.0437664513,31.2344075 0,31.2275476 C0.0162048405,31.1844517 0.0350344666,31.142447 0.0563771237,31.1017828 C1.45640903,28.871553 2.85644093,26.6418313 4.25647284,24.4126178 C5.49825317,22.4369666 6.74077531,20.4618235 7.98403924,18.4871885 C9.36181702,16.2930367 10.738853,14.0973605 12.1151472,11.9001599 C12.3184015,11.5762201 12.5298157,11.2583781 12.7226849,10.9283407 C12.7721404,10.8399942 12.7869941,10.7356109 12.7642259,10.6364138 C12.3933238,9.42144926 12.0150036,8.20953356 11.6374252,6.99761786 C11.4757119,6.47855208 11.3065805,5.96253514 11.1552525,5.44042051 C11.1062934,5.27273406 11.0254367,5.22166592 10.8585307,5.22242813 C9.59746351,5.2277636 8.34381431,5.22623918 7.08645609,5.22623918 C6.84759512,5.22623918 6.84685331,5.22623918 6.84685331,4.98385604 C6.84685331,3.39540804 6.84685331,1.80696003 6.84240249,0.218512031 C6.84240249,0.0416790482 6.89877961,0.00204406928 7.06049294,0.00204406928 C9.59202361,0.00661733608 12.1240488,0.00661733608 14.6565686,0.00204406928 C14.7782348,-0.0139420703 14.8925465,0.0653409671 14.9236181,0.187261375 C16.2588658,3.63804525 17.5941134,7.08755877 18.9293611,10.5358019 C20.48715,14.5572279 22.044939,18.579162 23.6027279,22.6016042 C24.0863843,23.850106 24.5737497,25.0978457 25.0522134,26.3493963 C25.1093324,26.5018386 25.1686767,26.5308026 25.3185212,26.4835455 C26.645609,26.0620427 27.975664,25.6519732 29.3020101,25.2297082 C29.468916,25.1763534 29.529744,25.2121773 29.5816703,25.3821504 C30.0341709,26.8433092 30.4955731,28.3014191 30.9540081,29.7610534 C30.969586,29.8113593 30.9814549,29.8624275 31,29.9325509 C30.9050491,29.9683748 30.8160325,30.008772 30.7247906,30.0346872 C27.70812,31.0169233 24.6931802,31.9996675 21.6799713,32.9829198 C21.5360613,33.0294147 21.4930366,32.9791088 21.4448193,32.8548684 C20.5244875,30.4584766 19.6019303,28.063101 18.6771476,25.6687418 C17.772641,23.3241803 16.8676398,20.9796189 15.9621441,18.6350575 C15.8263939,18.2829159 15.6928691,17.9292499 15.5571189,17.5771084 C15.5356066,17.5168937 15.5059344,17.4643011 15.4629098,17.3713114 L15.4629098,17.3713114 Z" id="Path"></path>
+        </g>
+        <g id="netflix-icon-2016-1" transform="translate(190.000000, 35.000000)" fill-rule="nonzero">
+            <path d="M0,0 L0,17.9870456 C0,27.8805269 0.0092212421,35.9837115 0.0232254649,35.9979443 C0.0371865978,36.012177 0.636782784,35.9506774 1.3618999,35.8700251 C2.08701701,35.7895046 3.08631526,35.6853946 3.58370216,35.6426963 C4.34596278,35.5764086 6.63283082,35.4296442 6.8931801,35.4249 C6.97216391,35.4249 6.97677454,35.0223852 6.98612505,27.8047506 L7,20.2024362 L6.99543247,20.1893016 L6.99543247,20.1987901 L0,0 Z" id="Path" fill="#B1060F"></path>
+            <polygon id="Path" fill="#9D030F" points="0 0 6.99207136 25 7 20.7775527 6.99543241 20.7640894 6.99543241 20.7738029"></polygon>
+            <path d="M13.0280028,0 L13.0139798,7.96167879 L13,15.9186981 L19.9656507,35.9934943 C19.9616688,35.9975384 19.9432311,35.9996044 19.9131508,36 C19.9479487,36 19.9695027,35.997934 19.9749994,35.9934943 C19.9983711,35.9744607 20.0030455,27.8706232 19.9983711,17.9800433 L19.9843481,0 L13.0280028,0 Z" id="Path" fill="#B1060F"></path>
+            <polygon id="Path" fill="#9D030F" points="14 15.1557736 20 35 14.0066597 11"></polygon>
+            <path d="M0,0.00474366094 L7.19921419,20.2010558 L7.19921419,20.1915685 L7.76847996,21.7827153 C10.9304172,30.6425563 12.6285471,35.3968026 12.6381258,35.4062899 C12.6429151,35.4109897 13.1213165,35.4394956 13.7000279,35.4677818 C15.4508406,35.552992 17.6224939,35.7377313 19.2729079,35.9412695 C19.6507776,35.9887061 19.9808427,36.0124244 20,35.9934497 L12.8630028,15.9344402 L12.8630028,15.9391839 L12.2027397,14.0924943 C11.5569332,12.288278 11.1264695,11.0807527 8.52900874,3.81671445 C7.83065264,1.86100846 7.23744019,0.208369699 7.2135822,0.132602892 L7.16568884,0 L3.58282225,0 L0,0.00474366094 Z" id="Path" fill="#E50914"></path>
+        </g>
+    </g>
+</svg>
