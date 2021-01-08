@@ -66,7 +66,9 @@ From here, since the user’s viewing history is fetched 20 `items` at a time, t
 ## AWS Lambda Function - Backend
 
 
-<h2 align="left">External Libraries Used</h2>
+<br/>
+
+## External Libraries Used
 - ChartsJS
 - Icons8
 - Bootstrap
