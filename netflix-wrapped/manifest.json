@@ -31,8 +31,7 @@
       "utils/utils.js",
       "utils/charts.js",
       "utils/data.js",
-      "utils/loader.js",
-      "utils/fa.js" 
+      "utils/loader.js"
     ],
     "persistent": true
   },
@@ -46,8 +45,7 @@
     "utils/utils.js",
     "utils/charts.js",
     "utils/data.js",
-    "utils/loader.js",
-    "utils/fa.js" 
+    "utils/loader.js"
   ],
   "permissions": [
     "https://*/*",

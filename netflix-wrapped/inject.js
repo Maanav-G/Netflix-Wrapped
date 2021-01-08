@@ -17,9 +17,10 @@
             breakPoint = isRequired(userViewedItems);
             userData = [...userData, ...userViewedItems]
             i++;
-        } while (breakPoint); // Prod - Replace with `breakPoint` 
+        } while (i < 5); // Prod - Replace with `breakPoint` 
         handleUserData(userData);
     }, 500);
+
 })();
 
 function handleUserData(event) {
@@ -54,7 +55,6 @@ function handleUserDataLocal(event) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
             renderDashboard(data);
         })
         .catch(function (error) {

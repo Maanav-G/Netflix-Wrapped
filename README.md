@@ -1,5 +1,7 @@
 # Netflix Wrapped
 
+Netflix Wrapped - Your 2020 Netflix year in review, in the form of a Google Extension that fetches your viewing history and builds a concise dashboard with all your statistics. 
+
 Feel free to download the “Netflix Wrapped” Google Extension from here and test it out yourself.
 
 Where, this repo holds Google Extension component as well as the back-end portion of the ‘Netflix Wrapped’ extension.
@@ -17,6 +19,10 @@ From here, since the user’s viewing history is fetched 20 `items` at a time, t
 
 ## Flask Backend
 
+## USED 
+- ChartsJS
+- Icons8
+- Bootstrap 
 
 ##
 - Num Episodes
