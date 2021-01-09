@@ -33,6 +33,7 @@ The following outlines the statistics you'd see:
 2. Open up [Netflix](https://www.netflix.com/ "Netflix") and log into your account 
 3. Head over to your viewing activity page via [netflix.com/viewingactivity](https://www.netflix.com/viewingactivity "Netflix Viewing Activity")
 4. Click on the `Netflix Wrapped` extension on your toolbar and simply click the `WRAPPED` button
+
 Now just give it a minute or so (depending on how much Netflix you watch) and your Netflix Wrapped dashboard will (should) open up.
 
 <br/>

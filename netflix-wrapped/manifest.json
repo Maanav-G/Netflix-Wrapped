@@ -47,9 +47,5 @@
     "utils/data.js",
     "utils/loader.js"
   ],
-  "permissions": [
-    "https://*/*",
-    "http://*/*",
-    "tabs"
-  ]
+  "permissions": ["activeTab"]
 }
