@@ -3,7 +3,7 @@ function startLoader() {
         <br/> <br/> <br/>
         <h3 style="text-align: center;">
             Fetching your viewing history... <br/>
-            Please wait a few minutes!
+            Should take about a minute or so?
         </h3>
     `
 }

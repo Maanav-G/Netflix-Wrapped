@@ -17,7 +17,7 @@
             breakPoint = isRequired(userViewedItems);
             userData = [...userData, ...userViewedItems]
             i++;
-        } while (i < 5); // Prod - Replace with `breakPoint` 
+        } while (breakPoint); // Prod - Replace with `breakPoint` 
         handleUserData(userData);
     }, 500);
 

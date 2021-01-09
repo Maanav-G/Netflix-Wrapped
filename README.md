@@ -7,7 +7,7 @@
   <p align="center">Netflix Wrapped - Your 2020 Netflix year in review</p>
 
   <p align="center">
-    <a href="https://chrome.google.com/webstore/detail/bckfpnenhimfckndcceonmkhheinmkob?utm_source=github">Install the Google Chrome Extension</a>
+    <a href="">Install the Google Chrome Extension</a>
   </p>
 </p>
 
@@ -30,8 +30,8 @@ The following outlines the statistics you'd see:
 
 ## Instructions
 1. Download this extension on the Google Chrome Store from here
-2. Open up Netflix and log into your account 
-3. Head over to your viewing activity page via netflix.com/viewingactivity
+2. Open up [Netflix](https://www.netflix.com/ "Netflix") and log into your account 
+3. Head over to your viewing activity page via [netflix.com/viewingactivity](https://www.netflix.com/viewingactivity "Netflix Viewing Activity")
 4. Click on the `Netflix Wrapped` extension on your toolbar and simply click the `WRAPPED` button
 Now just give it a minute or so (depending on how much Netflix you watch) and your Netflix Wrapped dashboard will (should) open up.
 
