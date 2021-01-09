@@ -33,11 +33,10 @@ function handleUserData(event) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
             renderDashboard(data['analyzedData'], data['analyzedData']['allTitles']);
         })
         .catch(function (error) {
-            console.log(error);
+            catchError('Data could not be fetched');
         });
 };
 
@@ -67,10 +66,9 @@ function renderDashboard(data, titles) {
     fetch(chrome.runtime.getURL(template))
         .then(response => response.text())
         .then(template => {
-            console.log('injecting template');
             document.getElementsByClassName("bd")[0].innerHTML = template;
             injectElement("summarySection", summary(data['basic stats']));
-            injectElement("topFiveShows", topFiveShows(
+            injectElement("topTenShows", topTenShows(
                 JSON.parse(data['top_shows'])
             ));
             injectElement("all_titles", allTitles(
@@ -124,9 +122,9 @@ function summary(data) {
     `;
 }
 
-function topFiveShows(data) {
+function topTenShows(data) {
     var showlist = "";
-    for (i = 0; i < Math.min(data.length, 5); i++) {
+    for (i = 0; i < Math.min(data.length, 10); i++) {
         template = `
         <tr>
             <td>
@@ -139,7 +137,7 @@ function topFiveShows(data) {
         `;
         showlist += template;
     }
-    if (data.length < 5) {
+    if (data.length < 10) {
         showlist = showlist + `
             <br/>
             * Viewing history only contains ${data.length} shows
@@ -149,7 +147,6 @@ function topFiveShows(data) {
 }
 
 function allTitles(data) {
-    console.log(data);
     var showList = "";
     for (i = 0; i < data.length; i++) {
 
