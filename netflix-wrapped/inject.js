@@ -148,56 +148,6 @@ function topFiveShows(data) {
     return showlist;
 }
 
-function getImgUrl(id) {
-
-    URI = 'https://www.netflix.com/api/shakti';
-    const getBuildID = getNetflixBuildId();
-    const buildID = getBuildID ? getBuildID : 'vb13b96d9';
-
-    reqURI = `${URI}/${buildID}/`;
-
-
-    do {
-        reqURI = `${URI}/${buildID}/viewingactivity?pg=${i}&pgSize=100`;
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", reqURI, false);
-        xmlHttp.send(null);
-        userViewedItems = JSON.parse(xmlHttp.responseText).viewedItems;
-        breakPoint = isRequired(userViewedItems);
-        userData = [...userData, ...userViewedItems]
-        i++;
-        console.log(i + " - " + userViewedItems);
-    } while (i < 10); // Prod - Replace with `breakPoint` 
-    handleUserData(userData);
-
-
-    var request = makeHttpObject();
-    request.open("GET", `https://www.netflix.com/ca/title/${id}`);
-    request.send(null);
-    request.onreadystatechange = function () {
-        if (request.readyState == 4) {
-            // let parser = new DOMParser();
-            // let parsedHtml = parser.parseFromString(request.responseText, 'text/html');
-            // let body = parsedHtml.getElementsByTagName('body')[0].childNodes
-            console.log(request.responseText);
-            // var root = document.createElement("div");
-            // root.innerHTML = request.responseText;
-            // console.log(root.div['section-hero'])
-            // var sectionHero = root.getElementById('section-hero');
-            // console.log(sectionHero)
-            // html = $.parseHTML(request.responseText)
-            // var appMountPoint = $(10, html);
-            // console.log(appMountPoint)
-            // var element = document.createElement('div');
-            // element.innerHTML = request.responseText;
-            // alert(element.firstChild.nodeName);
-            // sectionHero = element.getElementById('section-hero');
-            // heroContainer = element.getElementsByClassName('hero-container')[0]
-            // alert(heroContainer.text);
-        }
-    };
-}
-
 function allTitles(data) {
     console.log(data);
     var showList = "";
