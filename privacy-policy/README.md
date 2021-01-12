@@ -4,7 +4,7 @@
 </p>
 <br/>
 
-This Privacy Policy governs the information Netflix Wrapped collects on its extension and through its online services.
+This Privacy Policy governs the information Netflix Wrapped collects on its extension and through its online services. This extension is not created by or affiliated with Netflix in any way.
 
 <br/>
 
