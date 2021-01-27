@@ -7,7 +7,7 @@
   <p align="center">Netflix Wrapped - Your 2020 Netflix year in review</p>
 
   <p align="center">
-    <a href="">Install the Google Chrome Extension</a>
+    <a href="https://chrome.google.com/webstore/detail/netflix-wrapped/febagoadhbiohapfajddknchglmidhfb?hl=en-GB&authuser=0">Install the Google Chrome Extension</a>
   </p>
 </p>
 
