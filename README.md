@@ -66,6 +66,36 @@ From here, since the user’s viewing history is fetched 20 `items` at a time, t
 
 ## AWS Lambda Function - Backend
 
+Once the Google Extension has successfully gathered and aggregated the user's Netflix viewing history, it makes a `POST` request to my AWS `Lambda function`, which through the `API Gateway`, feeds the viewing history to my function, and returns the analyzed statistics as needed. 
+
+The data is returned in the following format:
+```JSON
+body = {
+  "basic_stats": {
+    "watched_t": ##,
+    "watched_m": ##,
+    "watched_s": ##,
+    "time_spent_t": ##,
+    "time_spent_m": ##,
+    "time_spent_s": ##,
+    },
+    "days": {
+      "Monday": ##,
+      "Tuesday": ##,
+      ...
+    },
+    "months": {
+      "January": ##,
+      "February": ##,
+      ...
+    },
+    "top_shows": [
+      {"title":..., "epi_count": ##},
+      {"title":..., "epi_count": ##},
+      ...
+    ]
+}
+```
 
 <br/>
 
